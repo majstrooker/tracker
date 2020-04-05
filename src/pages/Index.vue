@@ -85,7 +85,7 @@ export default {
             .bindPopup(feature.name)
         })
         lineFeatures.forEach((feature) => {
-          feature.leafletObject = L.line(feature.coords)
+          feature.leafletObject = L.polyline(feature.coords)
             .bindPopup(feature.name)
         })
         layer.features.forEach((feature) => {
@@ -236,6 +236,40 @@ export default {
               name: 'Vessel 1',
               type: 'marker',
               coords: [38.6333642, -90.2161267],
+              timestamp: Date(Date.UTC(120, 1, 3, 3, 4, 5))
+            },
+            {
+              id: 2,
+              name: 'Vessel 1',
+              type: 'marker',
+              coords: [38.6383642, -90.2261267],
+              timestamp: Date(Date.UTC(120, 1, 4, 3, 4, 5))
+            }
+          ]
+        },
+        {
+          id: 3,
+          name: 'Tracks',
+          active: true,
+          features: [
+            {
+              id: 0,
+              name: 'Vessel 1 - track 1',
+              type: 'line',
+              coords: [
+                [38.632364, -90.2061267],
+                [38.6333642, -90.2161267]
+              ],
+              timestamp: Date(Date.UTC(120, 1, 2, 3, 4, 5))
+            },
+            {
+              id: 1,
+              name: 'Vessel 1 - track 2',
+              type: 'line',
+              coords: [
+                [38.6333642, -90.2161267],
+                [38.6383642, -90.2261267]
+              ],
               timestamp: Date(Date.UTC(120, 1, 3, 3, 4, 5))
             }
           ]
