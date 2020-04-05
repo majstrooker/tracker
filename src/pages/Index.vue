@@ -65,7 +65,7 @@ export default {
       return L.latLng(lat, lng)
     },
     initMap () {
-      this.map = L.map('map').setView([38.771350, -90.183334], 4)
+      this.map = L.map('map').setView([38.6188362, -90.1947098], 13)
       this.tileLayer = L.tileLayer(
         'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
         {
@@ -86,6 +86,14 @@ export default {
         polygonFeatures.forEach((feature) => {
           feature.leafletObject = L.polygon(feature.coords)
             .bindPopup(feature.name)
+        })
+        layer.features.forEach((feature) => {
+        /* Show or hide the feature depending on the active argument */
+          if (layer.active) {
+            feature.leafletObject.addTo(this.map)
+          } else {
+            feature.leafletObject.removeFrom(this.map)
+          }
         })
       })
     },
@@ -127,7 +135,7 @@ export default {
         {
           id: 0,
           name: 'Restaurants',
-          active: false,
+          active: true,
           features: [
             {
               id: 0,
@@ -170,13 +178,27 @@ export default {
               name: 'Mango Restaurant',
               type: 'marker',
               coords: [38.6313642, -90.1961267]
+            },
+            {
+              id: 7,
+              name: 'Vessel 1',
+              type: 'marker',
+              coords: [38.632364, -90.2061267],
+              timestamp: Date(Date.UTC(120, 1, 2, 3, 4, 5))
+            },
+            {
+              id: 8,
+              name: 'Vessel 2',
+              type: 'marker',
+              coords: [38.6333642, -90.2161267],
+              timestamp: Date(Date.UTC(120, 1, 3, 3, 4, 5))
             }
           ]
         },
         {
           id: 1,
           name: 'City/County Boundaries',
-          active: false,
+          active: true,
           features: [
             {
               id: 0,
