@@ -1,10 +1,6 @@
 <template>
   <q-page padding class="flex">
     <q-card style="flex:1" class="col-md-4">
-      <!-- <l-map :zoom="zoom" :center="center">
-        <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-          <l-marker :lat-lon="marker" ></l-marker>
-      </l-map> -->
       <div id="app" class="container">
         <!-- The rest of the app goes here -->
         <div class="row">
@@ -79,12 +75,17 @@ export default {
       this.layers.forEach((layer) => {
         const markerFeatures = layer.features.filter(feature => feature.type === 'marker')
         const polygonFeatures = layer.features.filter(feature => feature.type === 'polygon')
+        const lineFeatures = layer.features.filter(feature => feature.type === 'line')
         markerFeatures.forEach((feature) => {
           feature.leafletObject = L.marker(feature.coords)
             .bindPopup(feature.name)
         })
         polygonFeatures.forEach((feature) => {
           feature.leafletObject = L.polygon(feature.coords)
+            .bindPopup(feature.name)
+        })
+        lineFeatures.forEach((feature) => {
+          feature.leafletObject = L.line(feature.coords)
             .bindPopup(feature.name)
         })
         layer.features.forEach((feature) => {
@@ -116,26 +117,13 @@ export default {
   },
   data () {
     return {
-      zoom: 13,
-      center: L.latLng(47.413220, -1.219482),
-      url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      marker: L.latLng(47.413220, -1.219482),
-      pointsss: [
-        L.latLng(47.413220, -1.219482),
-        L.latLng(47.423221, -1.229483)
-      ],
-      points: [
-        { latitude: 47.413220, longitude: -1.219482 },
-        { latitude: 47.423221, longitude: -1.229483 }
-      ],
       map: null,
       tileLayer: null,
       layers: [
         {
           id: 0,
           name: 'Restaurants',
-          active: true,
+          active: false,
           features: [
             {
               id: 0,
@@ -178,27 +166,13 @@ export default {
               name: 'Mango Restaurant',
               type: 'marker',
               coords: [38.6313642, -90.1961267]
-            },
-            {
-              id: 7,
-              name: 'Vessel 1',
-              type: 'marker',
-              coords: [38.632364, -90.2061267],
-              timestamp: Date(Date.UTC(120, 1, 2, 3, 4, 5))
-            },
-            {
-              id: 8,
-              name: 'Vessel 2',
-              type: 'marker',
-              coords: [38.6333642, -90.2161267],
-              timestamp: Date(Date.UTC(120, 1, 3, 3, 4, 5))
             }
           ]
         },
         {
           id: 1,
           name: 'City/County Boundaries',
-          active: true,
+          active: false,
           features: [
             {
               id: 0,
@@ -242,6 +216,27 @@ export default {
                 [38.764792, -90.184021],
                 [38.771350, -90.183334]
               ]
+            }
+          ]
+        },
+        {
+          id: 2,
+          name: 'Vessels',
+          active: true,
+          features: [
+            {
+              id: 0,
+              name: 'Vessel 1',
+              type: 'marker',
+              coords: [38.632364, -90.2061267],
+              timestamp: Date(Date.UTC(120, 1, 2, 3, 4, 5))
+            },
+            {
+              id: 1,
+              name: 'Vessel 1',
+              type: 'marker',
+              coords: [38.6333642, -90.2161267],
+              timestamp: Date(Date.UTC(120, 1, 3, 3, 4, 5))
             }
           ]
         }
